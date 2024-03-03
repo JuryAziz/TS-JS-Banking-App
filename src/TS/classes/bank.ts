@@ -135,7 +135,7 @@ export default class Bank {
      */
     checkBranch = (branch: Branch): boolean => {
         if (!(branch instanceof Branch)) return false;
-        return this.branches.length > 0 ? (this.branches.find(b => b.getName().toLowerCase() === branch.getName().toLowerCase()) ? true : false) : false;
+        return this.branches.includes(branch);
     }
 
     /**
@@ -163,10 +163,37 @@ export default class Bank {
 
             console.log('\n Name:', customer.getName(), 'with ID:', customer.getID());
 
-            includeTransactions ? customer.getTransactions().length > 0 ?
+            includeTransactions ? customer.getTransactions().length ?
                 console.log('\t' + customer.getTransactions().map(transaction => 'Amount: ' + transaction.amount + ' -- Date: ' + transaction.date.toUTCString()).join('\n\t')) :
                 console.log('\t The customer has no transactions') : 0;
         });
 
     }
+
+    // bonus search functionality
+    /**
+     * Searching for customers by branch name, or customer name, or customer id 
+     * @param param An object {branchName: string; customerName: string; customerID: number; } specifying 0 to 3 attribute for searching 
+     * @returns {Customer[] | null} An array of customers matching the specified parameters, null if no matched customers were found
+     */
+    searchCustomers = ({ branchName, customerName, customerID,} : Partial<{ branchName: string; customerName: string; customerID: number; }>): Customer[] | null => {
+
+        let customers: Customer[] = this.branches.map(branch => branch.getCustomers()).reduce((branchA, branchB) => branchA.concat(branchB));
+
+        if (typeof branchName === 'string') {
+            const searchedBranches: Branch[] | null = this.findBranchByName(branchName);
+            customers = searchedBranches ? searchedBranches.map(branch => branch.getCustomers()).reduce((branchA, branchB) => branchA.concat(branchB)) : [];
+        }
+
+        if (typeof customerName === 'string') {
+            customers = customers.filter(customer => customer.getName().toLowerCase() === customerName.toLowerCase());
+        }
+
+        if (typeof customerID === 'number') {
+            customers = customers.filter(customer => customer.getID() === customerID);
+        }
+
+        return customers.length ? customers : null;
+    }
+
 }
