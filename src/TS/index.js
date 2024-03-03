@@ -26,4 +26,5 @@ console.log(arizonaBank.listCustomers(sunBranch, true));
 console.log(arizonaBank.searchCustomers({}));
 console.log(arizonaBank.searchCustomers({ branchName: 'west' }));
 console.log(arizonaBank.searchCustomers({ customerName: 'Anna' }));
-console.log(arizonaBank.searchCustomers({}));
+console.log(arizonaBank.searchCustomers({ customerID: 0 }));
+console.log(arizonaBank.searchCustomers({ customerID: 1 }));

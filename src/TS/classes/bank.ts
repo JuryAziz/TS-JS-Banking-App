@@ -118,7 +118,7 @@ export default class Bank {
     findBranchByName(branchName: string): Branch[] | null {
         if (typeof branchName !== 'string') return null;
 
-        const searchedBranch = this.branches.filter((branch) => branchName.toLowerCase() === branch.getName().toLowerCase())
+        const searchedBranch = this.branches.filter((branch) => branch.getName().toLowerCase().includes(branchName.toLowerCase()))
 
         if (!searchedBranch) {
             console.log('Branch', branchName, 'was not found');
@@ -176,13 +176,13 @@ export default class Bank {
      * @param param An object {branchName: string; customerName: string; customerID: number; } specifying 0 to 3 attribute for searching 
      * @returns {Customer[] | null} An array of customers matching the specified parameters, null if no matched customers were found
      */
-    searchCustomers({ branchName, customerName, customerID, }: Partial<{ branchName: string; customerName: string; customerID: number; }>): Customer[] | null {
+    searchCustomers({ branchName, customerName, customerID }: Partial<{ branchName: string; customerName: string; customerID: number; }>): Customer[] | string {
 
         let customers: Customer[] = this.branches.map(branch => branch.getCustomers()).reduce((branchA, branchB) => branchA.concat(branchB));
 
         if (typeof branchName === 'string') {
             const searchedBranches: Branch[] | null = this.findBranchByName(branchName);
-            customers = searchedBranches ? searchedBranches.map(branch => branch.getCustomers()).reduce((branchA, branchB) => branchA.concat(branchB)) : [];
+            customers = searchedBranches?.length ? searchedBranches.map(branch => branch.getCustomers()).reduce((branchA, branchB) => branchA.concat(branchB)) : [];
         }
 
         if (typeof customerName === 'string') {
@@ -193,7 +193,7 @@ export default class Bank {
             customers = customers.filter(customer => customer.getID() === customerID);
         }
 
-        return customers.length ? customers : null;
+        return customers.length ? customers : 'no matching customers!';
     }
 
 }
