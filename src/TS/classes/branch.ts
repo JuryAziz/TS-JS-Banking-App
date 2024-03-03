@@ -1,5 +1,9 @@
 import Customer from './customer.js';
-import Transaction from './transaction.js';
+
+interface BranchI {
+    name: string,
+    customers: Customer[]
+}
 
 /**
  * A class representing a banking branch
@@ -8,28 +12,26 @@ import Transaction from './transaction.js';
  * @property {string} name The name of the branch
  * @property {Customer[]} customers An array of all customers of the branch
  */
-export default class Branch {
+export default class Branch implements BranchI {
 
     /**
      * name of the branch
      * @type {string}
      */
-    name;
+    name: string;
 
     /**
      * array of customers in the branch
      * @type {Customer[]}
      */
-    customers = [];
+    customers: Customer[] = [];
 
     /**
      * @param {string} name name of the branch
      */
-    constructor(name) {
-        if (typeof name !== 'string') {
-            console.log('The name of the branch must be of type string!');
-            return;
-        }
+    constructor(name: string) {
+        if (typeof name !== 'string') throw console.log('The name of the branch must be of type string!');
+
         this.name = name;
         console.log('Branch', name, 'has been created successfully');
     }
@@ -38,7 +40,7 @@ export default class Branch {
      * returns this branch's name
      * @returns {string} branch name
      */
-    getName = () => {
+    getName = (): string => {
         return this.name;
     }
 
@@ -46,7 +48,7 @@ export default class Branch {
     * returns this branch's customers list
     * @returns {Customer[]} array of  customers 
     */
-    getCustomers = () => {
+    getCustomers = (): Customer[] => {
         return this.customers;
     }
 
@@ -55,16 +57,18 @@ export default class Branch {
      * @param {Customer} customer the customer object to be added to the branch
      * @returns {boolean} true if the customer was added successfully, false otherwise
      */
-    addCustomer = (customer) => {
+    addCustomer = (customer: Customer): boolean => {
 
-        if(!customer instanceof Customer) {
+        if (!(customer instanceof Customer)) {
             console.log('Customer must be instance of Customer!');
-            return false;}
+            return false;
+        }
 
         if (this.customers.find((c) => c.getID() === customer.getID())) {
             console.log('A costumer can only be added once');
             return false;
         }
+
 
         this.customers.push(customer);
         return true;
@@ -74,20 +78,21 @@ export default class Branch {
      * adds a transaction with the amount specified to the costumer with the matching id
      * @param {number} customerID the customer ID 
      * @param {number} amount the amount of the transaction
-     * @returns 
+     * @returns {boolean} true if the transaction was added successfully, false otherwise
      */
-    addCustomerTransaction = (customerID, amount) => {
-        if(typeof customerID !== 'number' || typeof amount !== 'number') {
-            console.log('Both the ID of the customer and the amount must be of type number!');
-            return false;
-        }
+    addCustomerTransaction = (customerID: number, amount: number): boolean => {
+        if((typeof customerID !== 'number' )|| (typeof amount !== 'number')) {
+          console.log('Both the ID of the customer and the amount must be of type number!'); 
+          return false; 
+        } 
 
-        const customer = find((customer) => customer.getID === customerID);
+        const customer = this.customers.find((customer) => customer.getID() === customerID);
 
-        if (!customer) {
+        if (!customer)  {
             console.log('Customer is not registered and cannot be found');
             return false;
         }
+
 
         return customer.addTransaction(amount);
 
