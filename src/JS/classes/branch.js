@@ -38,7 +38,7 @@ export default class Branch {
      * returns this branch's name
      * @returns {string} branch name
      */
-    getName = () => {
+    getName() {
         return this.name;
     }
 
@@ -46,7 +46,7 @@ export default class Branch {
     * returns this branch's customers list
     * @returns {Customer[]} array of  customers 
     */
-    getCustomers = () => {
+    getCustomers() {
         return this.customers;
     }
 
@@ -55,11 +55,12 @@ export default class Branch {
      * @param {Customer} customer the customer object to be added to the branch
      * @returns {boolean} true if the customer was added successfully, false otherwise
      */
-    addCustomer = (customer) => {
+    addCustomer(customer) {
 
-        if(!customer instanceof Customer) {
+        if (!customer instanceof Customer) {
             console.log('Customer must be instance of Customer!');
-            return false;}
+            return false;
+        }
 
         if (this.customers.find((c) => c.getID() === customer.getID())) {
             console.log('A costumer can only be added once');
@@ -76,8 +77,8 @@ export default class Branch {
      * @param {number} amount the amount of the transaction
      * @returns 
      */
-    addCustomerTransaction = (customerID, amount) => {
-        if(typeof customerID !== 'number' || typeof amount !== 'number') {
+    addCustomerTransaction(customerID, amount) {
+        if (typeof customerID !== 'number' || typeof amount !== 'number') {
             console.log('Both the ID of the customer and the amount must be of type number!');
             return false;
         }

@@ -50,7 +50,7 @@ export default class Customer {
      * returns the name of the customer
      * @returns {string} customer name
      */
-    getName = () => {
+    getName() {
         return this.name;
     }
 
@@ -58,7 +58,7 @@ export default class Customer {
      * returns the ID of the customer
      * @returns {number} customer ID
      */
-    getID = () => {
+    getID() {
         return this.id;
     }
 
@@ -66,7 +66,7 @@ export default class Customer {
      * returns an array of all customer transactions 
      * @returns {Transaction[]} customer transactions 
      */
-    getTransactions = () => {
+    getTransactions() {
         return this.transactions;
     }
 
@@ -74,7 +74,7 @@ export default class Customer {
      * returns the customer balance 
      * @returns {number} customer's balance
      */
-    getBalance = () => {
+    getBalance() {
         const total = this.transactions.length > 0 ? this.transactions.map((transaction) => transaction.amount).reduce((acc, transaction) => acc + transaction) : 0;
         return total;
     }
@@ -84,7 +84,7 @@ export default class Customer {
      * @param {number} amount the amount of the transaction     
      * @returns {boolean} true if transaction was added successfully. false otherwise 
      */
-    addTransaction = (amount) => {
+    addTransaction(amount) {
         if (typeof amount !== 'number') {
             console.log('Amount must be of type number');
             return false;

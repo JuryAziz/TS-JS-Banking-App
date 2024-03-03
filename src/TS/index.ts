@@ -11,7 +11,7 @@ const customer3 = new Customer("John", 3)
 
 arizonaBank.addBranch(westBranch)
 arizonaBank.addBranch(sunBranch)
-arizonaBank.addBranch(westBranch) 
+arizonaBank.addBranch(westBranch)
 
 arizonaBank.findBranchByName("bank")
 arizonaBank.findBranchByName("sun")
@@ -28,9 +28,9 @@ arizonaBank.addCustomerTransaction(westBranch, customer2.getID(), 3000)
 customer1.addTransaction(-1000)
 console.log(customer1.getBalance())
 console.log(arizonaBank.listCustomers(westBranch, true))
-console.log(arizonaBank.listCustomers(sunBranch,true))
+console.log(arizonaBank.listCustomers(sunBranch, true))
 
 console.log(arizonaBank.searchCustomers({}));
-console.log(arizonaBank.searchCustomers({branchName: 'west'}));
-console.log(arizonaBank.searchCustomers({customerName: 'Anna'}));
+console.log(arizonaBank.searchCustomers({ branchName: 'west' }));
+console.log(arizonaBank.searchCustomers({ customerName: 'Anna' }));
 console.log(arizonaBank.searchCustomers({}));

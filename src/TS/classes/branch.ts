@@ -80,15 +80,15 @@ export default class Branch implements BranchI {
      * @param {number} amount the amount of the transaction
      * @returns {boolean} true if the transaction was added successfully, false otherwise
      */
-    addCustomerTransaction = (customerID: number, amount: number): boolean => {
-        if((typeof customerID !== 'number' )|| (typeof amount !== 'number')) {
-          console.log('Both the ID of the customer and the amount must be of type number!'); 
-          return false; 
-        } 
+    addCustomerTransaction(customerID: number, amount: number): boolean {
+        if ((typeof customerID !== 'number') || (typeof amount !== 'number')) {
+            console.log('Both the ID of the customer and the amount must be of type number!');
+            return false;
+        }
 
         const customer = this.customers.find((customer) => customer.getID() === customerID);
 
-        if (!customer)  {
+        if (!customer) {
             console.log('Customer is not registered and cannot be found');
             return false;
         }

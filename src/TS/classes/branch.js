@@ -47,27 +47,27 @@ export default class Branch {
             this.customers.push(customer);
             return true;
         };
-        /**
-         * adds a transaction with the amount specified to the costumer with the matching id
-         * @param {number} customerID the customer ID
-         * @param {number} amount the amount of the transaction
-         * @returns {boolean} true if the transaction was added successfully, false otherwise
-         */
-        this.addCustomerTransaction = (customerID, amount) => {
-            if ((typeof customerID !== 'number') || (typeof amount !== 'number')) {
-                console.log('Both the ID of the customer and the amount must be of type number!');
-                return false;
-            }
-            const customer = this.customers.find((customer) => customer.getID() === customerID);
-            if (!customer) {
-                console.log('Customer is not registered and cannot be found');
-                return false;
-            }
-            return customer.addTransaction(amount);
-        };
         if (typeof name !== 'string')
             throw console.log('The name of the branch must be of type string!');
         this.name = name;
         console.log('Branch', name, 'has been created successfully');
+    }
+    /**
+     * adds a transaction with the amount specified to the costumer with the matching id
+     * @param {number} customerID the customer ID
+     * @param {number} amount the amount of the transaction
+     * @returns {boolean} true if the transaction was added successfully, false otherwise
+     */
+    addCustomerTransaction(customerID, amount) {
+        if ((typeof customerID !== 'number') || (typeof amount !== 'number')) {
+            console.log('Both the ID of the customer and the amount must be of type number!');
+            return false;
+        }
+        const customer = this.customers.find((customer) => customer.getID() === customerID);
+        if (!customer) {
+            console.log('Customer is not registered and cannot be found');
+            return false;
+        }
+        return customer.addTransaction(amount);
     }
 }

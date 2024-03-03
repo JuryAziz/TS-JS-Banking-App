@@ -1,6 +1,6 @@
 import Transaction from './transaction.js';
 
-interface CustomerI{
+interface CustomerI {
     name: string,
     id: number
 }
@@ -18,26 +18,26 @@ export default class Customer implements CustomerI {
      * name of the customer
      * @type {string}
      */
-    name : string;
+    name: string;
 
     /**
      * ID of the customer
      * @type {number}
      */
-    id : number;
+    id: number;
 
     /**
      * An array of customer transaction
      * @type {Transaction[]}
      */
-    transactions : Transaction[] = [];
+    transactions: Transaction[] = [];
 
 
     /**
      * @param {string} name The name of the customer
      * @param {number} id The ID of the customer
      */
-    constructor(name : string, id : number) {
+    constructor(name: string, id: number) {
         if (typeof name !== 'string') throw console.log('name must be of type string')
 
         if (typeof id !== 'number') throw console.log('id must be of type number')
@@ -51,7 +51,7 @@ export default class Customer implements CustomerI {
      * returns the name of the customer
      * @returns {string} customer name
      */
-    getName = () : string => {
+    getName(): string {
         return this.name;
     }
 
@@ -59,7 +59,7 @@ export default class Customer implements CustomerI {
      * returns the ID of the customer
      * @returns {number} customer ID
      */
-    getID = () : number => {
+    getID(): number {
         return this.id;
     }
 
@@ -67,7 +67,7 @@ export default class Customer implements CustomerI {
      * returns an array of all customer transactions 
      * @returns {Transaction[]} customer transactions 
      */
-    getTransactions = () : Transaction[] => {
+    getTransactions(): Transaction[] {
         return this.transactions;
     }
 
@@ -75,7 +75,7 @@ export default class Customer implements CustomerI {
      * returns the customer balance 
      * @returns {number} customer's balance
      */
-    getBalance = () : number => {
+    getBalance(): number {
         const total = this.transactions.length > 0 ? this.transactions.map((transaction) => transaction.amount).reduce((acc, transaction) => acc + transaction) : 0;
         return total;
     }
@@ -85,7 +85,7 @@ export default class Customer implements CustomerI {
      * @param {number} amount the amount of the transaction     
      * @returns {boolean} true if transaction was added successfully. false otherwise 
      */
-    addTransaction = (amount : number) : boolean => {
+    addTransaction(amount: number): boolean {
         if (typeof amount !== 'number') {
             console.log('Amount must be of type number');
             return false;

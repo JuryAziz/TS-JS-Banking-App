@@ -41,7 +41,7 @@ export default class Bank {
      * @param {Branch} branch a branch object to be added to the bank 
      * @returns {boolean} true if the branch was added successfully, false otherwise
      */
-    addBranch = (branch: Branch): boolean => {
+    addBranch(branch: Branch): boolean {
 
         if (!(branch instanceof Branch)) return false;
 
@@ -61,7 +61,7 @@ export default class Bank {
      * @param {Customer} customer the customer to be added to the branch
      * @returns {boolean} true if the customer is added successfully, false otherwise
      */
-    addCustomer = (branch: Branch, customer: Customer): boolean => {
+    addCustomer(branch: Branch, customer: Customer): boolean {
         if (!(branch instanceof Branch) || !(customer instanceof Customer)) return false;
 
         const searchedBranch = this.branches.find(b => b.getName().toLowerCase() === branch.getName().toLowerCase())
@@ -89,7 +89,7 @@ export default class Bank {
      * @param {number} amount the amount of the transaction
      * @returns {boolean} true if the transaction was added successfully to the customer of the specified branch, false otherwise
      */
-    addCustomerTransaction = (branch: Branch, customerID: number, amount: number): boolean => {
+    addCustomerTransaction(branch: Branch, customerID: number, amount: number): boolean {
 
 
         const searchedBranch = this.branches.find((b) => b.getName().toLowerCase() === branch.getName().toLowerCase());
@@ -115,7 +115,7 @@ export default class Bank {
      * @param {string} branchName the name of the branch
      * @returns {Branch[] | null} array of matching branches, null if no matching branches were found
      */
-    findBranchByName = (branchName: string): Branch[] | null => {
+    findBranchByName(branchName: string): Branch[] | null {
         if (typeof branchName !== 'string') return null;
 
         const searchedBranch = this.branches.filter((branch) => branchName.toLowerCase() === branch.getName().toLowerCase())
@@ -133,7 +133,7 @@ export default class Bank {
      * @param {Branch} branch branch object
      * @returns {boolean} true if branch exists, false otherwise
      */
-    checkBranch = (branch: Branch): boolean => {
+    checkBranch(branch: Branch): boolean {
         if (!(branch instanceof Branch)) return false;
         return this.branches.includes(branch);
     }
@@ -143,7 +143,7 @@ export default class Bank {
      * @param {Branch} branch branch object
      * @param {boolean?} includeTransactions value to include customer transactions
      */
-    listCustomers = (branch: Branch, includeTransactions = false): void => {
+    listCustomers(branch: Branch, includeTransactions = false): void {
         if (!(branch instanceof Branch) || typeof includeTransactions !== 'boolean') return;
 
         const searchedBranch = this.branches.find((b) => b.getName().toLowerCase() === branch.getName().toLowerCase());
@@ -176,7 +176,7 @@ export default class Bank {
      * @param param An object {branchName: string; customerName: string; customerID: number; } specifying 0 to 3 attribute for searching 
      * @returns {Customer[] | null} An array of customers matching the specified parameters, null if no matched customers were found
      */
-    searchCustomers = ({ branchName, customerName, customerID,} : Partial<{ branchName: string; customerName: string; customerID: number; }>): Customer[] | null => {
+    searchCustomers({ branchName, customerName, customerID, }: Partial<{ branchName: string; customerName: string; customerID: number; }>): Customer[] | null {
 
         let customers: Customer[] = this.branches.map(branch => branch.getCustomers()).reduce((branchA, branchB) => branchA.concat(branchB));
 
