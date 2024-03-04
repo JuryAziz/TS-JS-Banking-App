@@ -10,7 +10,7 @@ interface BankI {
  * @class
  * @constructor
  * @property {string} name The name of the bank
- * @property {branch[]} branches An array of bank branches
+ * @property {Branch[]} branches An array of bank branches
  */
 export default class Bank {
 

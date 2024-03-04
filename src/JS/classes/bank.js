@@ -6,7 +6,7 @@ import Customer from './customer.js';
  * @class
  * @constructor
  * @property {string} name The name of the bank
- * @property {branch[]} branches An array of bank branches
+ * @property {Branch[]} branches An array of bank branches
  */
 export default class Bank {
 
@@ -115,7 +115,7 @@ export default class Bank {
      * @returns {Branch[] | null} array of matching branches, null if no matching branches were found
      */
     findBranchByName(branchName) {
-        if (typeof branchName !== 'string') return false;
+        if (typeof branchName !== 'string') return null;
 
         const searchedBranch = this.branches.filter((branch) => branchName.toLowerCase() === branch.getName().toLowerCase())
 
@@ -134,7 +134,8 @@ export default class Bank {
      */
     checkBranch(branch) {
         if (!branch instanceof Branch) return false;
-        return this.branches.length > 0 ? (this.branches.find(b => b.getName().toLowerCase() === branch.getName().toLowerCase()) ? true : false) : false;
+        return this.branches.find(b => b.getName().toLowerCase() === branch.getName().toLowerCase()) ? true : false;
+        // or return this.branches.includes(branch); as in the TS file ...
     }
 
     /**

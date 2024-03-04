@@ -83,7 +83,7 @@ export default class Branch {
             return false;
         }
 
-        const customer = find((customer) => customer.getID === customerID);
+        const customer = this.branches.find((customer) => customer.getID === customerID);
 
         if (!customer) {
             console.log('Customer is not registered and cannot be found');
